@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class linkedList {
     node head = null;
     // node a, b;
@@ -21,11 +25,9 @@ public class linkedList {
             return a;
 
         /* Pick either a or b, and recur */
-        if (a.toString().toLowerCase().compareTo(b.toString().toLowerCase()) > 0) {
-            System.out.println(a);
+        if (a.val.toString().toLowerCase().compareTo(b.val.toString().toLowerCase()) < 0) {
             result = a;
             result.next = sortedMerge(a.next, b);
-            System.out.println(a + "-----" + a.next + result);
         }
         else {
             result = b;
@@ -99,18 +101,29 @@ public class linkedList {
     {
 
         linkedList li = new linkedList();
-        /*
-         * Let us create a unsorted linked list to test the functions
-         * created. The list shall be a: 2->3->20->5->10->15
-         */
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("unsortedDictTest.txt"));//0 milisecond
+            String line = reader.readLine(); //1 milisecond
+            int counter = 0;
+            while (line != null) {
+                li.push(line);
+                /*if (dict.size() == 0) {
+                    dict.add(line);
+
+                } else {
+                    if (!sortList(line, dict)) {
+                        dict.add(line);
+                    }
+//                     System.out.println(dict.indexOf(line));
+                }*/
+                line = reader.readLine();
+            }
+            reader.close();
+//            System.out.println("END!!!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         li.push("hey");
-        li.push("broo");
-        li.push("cow");
-        li.push("adam");
-        li.push("eva");
-        li.push("mebra");
-        li.push("zion");
-        li.push("dion");
 
         // Apply merge Sort
         li.head = li.mergeSort(li.head);
